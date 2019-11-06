@@ -4,9 +4,10 @@ var mongoose = require("mongoose")
 var axios = require("axios")
 var cheerio = require("cheerio")
 var bodyParser = require("body-parser")
+require("dotenv").config()
 
 var app = express ()
-var port = 3000
+var port = process.env.PORT || 3000
 
 var models = require("./models")
 
@@ -20,10 +21,19 @@ app.engine("handlebars",expHbs({
     defaultLayout:"main"
 }))
 app.set("view engine","handlebars")
-
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+console.log(process.env.MONGODB_URI)
+var MONGODB_URI = process.env.MONGOLAB_ROSE_URI || "mongodb://127.0.0.1/mongoHeadlines";
 
 mongoose.connect(MONGODB_URI);
+
+app.get("/", function(req,res){
+    models.article.find().then(function(data){
+        var result = {
+            article:data
+        }
+        res.render("partials/articles",result)
+    })
+})
 
 app.get("/scrape",function(req,res){
     axios.get("https://www.washingtonpost.com/business/technology/").then(function(response) {
@@ -88,6 +98,14 @@ app.post("/articles/:id", function(req,res){
     })
 })
 
+app.delete("/comments/:id",function(req, res){
+    models.comment.remove({
+        _id: req.params.id
+    }).then(function(data){
+        console.log("comment deleted")
+    })
+})
+ 
 app.listen(port, function(){
     console.log("listening on port 3000")
 })

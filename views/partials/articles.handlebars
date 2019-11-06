@@ -1,0 +1,12 @@
+<div class = "row" > 
+    {{#each article}}
+        <div class="card" id="article" data-id="{{this._id}}" style="width: 18rem;">
+            <img src="{{this.image}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <p class="card-text">{{this.summary}}</p>
+                <a href="{{this.link}}" class="btn btn-primary">View article</a>
+            </div>
+        </div>
+    {{/each}}
+</div>
