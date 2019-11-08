@@ -1,4 +1,13 @@
 $(document).ready(function(){
+  $(document).on("click","#scrape", function(){
+    $.ajax({
+      method: "GET", 
+      url: "/scrape" 
+    }).then(function(data){
+      console.log(data)
+    });
+  })
+
   $(document).on("click", "#article", function(){
     $(".modal").show()
     var articleID = $(this).attr("data-id")

@@ -64,6 +64,8 @@ app.get("/scrape",function(req,res){
                     })
                 }
             })
+
+            res.json("scraped to database")
         });
     });
 })
