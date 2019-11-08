@@ -22,7 +22,7 @@ app.engine("handlebars",expHbs({
 }))
 app.set("view engine","handlebars")
 console.log(process.env.MONGODB_URI)
-var MONGODB_URI = process.env.MONGOLAB_ROSE_URI || "mongodb://userkknews:Lovemlab19b@ds141208.mlab.com:41208/heroku_ctdp4z3d";
+var MONGODB_URI = "mongodb://userkknews:Lovemlab19b@ds141208.mlab.com:41208/heroku_ctdp4z3d"; //|| process.env.MONGOLAB_ROSE_URI;
 
 mongoose.connect(MONGODB_URI);
 
